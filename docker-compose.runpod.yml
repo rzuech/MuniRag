@@ -8,11 +8,13 @@ services:
       - ./chroma_data:/app/chroma_data
     depends_on:
       - ollama
+    gpus: all
 
   ollama:
     image: ollama/ollama:latest
     volumes:
       - ./ollama_models:/root/.ollama/models
+    gpus: all
     deploy:
       resources:
         reservations:
