@@ -1,0 +1,11 @@
+# Ignore local data and docs
+../munirag_data/
+../munirag_docs/
+
+# Ignore Python and IDE artifacts
+__pycache__/
+*.pyc
+*.log
+.env
+.idea/
+.vscode/
