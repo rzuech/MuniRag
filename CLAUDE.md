@@ -59,3 +59,33 @@ docker compose up --build
 - Ollama models cached in ./ollama_models volume
 - Document uploads stored in ./data volume
 - Main application entry point: src/app.py:15
+
+## Current Status (2025-07-08)
+
+### Working
+- ✅ Streamlit UI: http://localhost:8501
+- ✅ All Docker services running (Ollama, Qdrant)
+- ✅ Dependencies fixed (lxml-html-clean, pydantic-settings, einops)
+- ✅ Optimized Dockerfile with PyTorch base image
+
+### Issues to Fix
+1. **FastAPI not starting** - Jina embeddings v3 has file resolution issues
+   - Error: FileNotFoundError for rotary.py in Hugging Face cache
+   - Even with HF_HOME set and trust_remote_code=True
+   
+2. **Build optimization needed** - Takes 30+ minutes due to large ML dependencies
+
+### TODO for Next Session
+1. Fix FastAPI startup with Jina embeddings - FileNotFoundError for rotary.py
+2. Consider switching to BAAI/bge-large-en-v1.5 if Jina issues persist (2% accuracy trade-off)
+3. Add flash_attn dependency or disable warnings
+4. Fix main.py reload warning in uvicorn
+5. Test full RAG pipeline with document upload
+6. Optimize build time using better layer caching
+
+### Files Created/Modified Today
+- Dockerfile.optimized - Uses PyTorch base image for faster builds
+- requirements-core.txt, requirements-ml.txt, requirements-app.txt - Split dependencies
+- start.sh - Fixed startup script with HF_HOME environment variable
+- All src/*.py files - Fixed relative imports (from .module import)
+- docker-compose.yml - Updated to use Dockerfile.optimized

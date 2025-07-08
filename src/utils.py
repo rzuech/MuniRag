@@ -30,7 +30,7 @@ USAGE:
 """
 
 from datetime import datetime
-from logger import get_logger
+from .logger import get_logger
 
 # Get a logger specific to this module
 logger = get_logger("utils")

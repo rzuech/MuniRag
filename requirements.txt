@@ -1,9 +1,43 @@
+# Core dependencies
+torch>=2.0.0
+transformers>=4.36.0
+sentence-transformers>=2.2.2
+langchain>=0.1.0
+langchain-community>=0.0.10
+qdrant-client>=1.7.0
+fastapi>=0.104.0
+uvicorn>=0.24.0
+python-multipart>=0.0.6
+
+# PDF processing
+pymupdf4llm>=0.0.5
+pypdf>=3.17.0
+
+# Embedding models
+jina>=3.20.0
+FlagEmbedding>=1.2.0
+
+# LLM support
+ollama>=0.1.7
+accelerate>=0.25.0
+bitsandbytes>=0.41.0
+
+# Search and ranking
+rank-bm25>=0.2.2
+rerankers>=0.2.0
+
+# Utils
+python-dotenv>=1.0.0
+pydantic>=2.5.0
+numpy>=1.24.0
+pandas>=2.0.0
+tqdm>=4.66.0
+
+# Legacy dependencies (for compatibility)
 streamlit>=1.35
-sentence-transformers>=2.6
-chromadb>=0.5
-ollama>=0.1
 trafilatura>=1.8
-PyPDF2>=3.0
 langchain-text-splitters>=0.1
-python-dotenv>=1.0
-torch
+lxml-html-clean>=0.1.0
+
+# Additional dependencies for Jina
+einops>=0.6.0

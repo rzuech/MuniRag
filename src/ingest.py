@@ -42,10 +42,10 @@ import PyPDF2
 import requests
 from urllib.parse import urlparse, urljoin
 from langchain_text_splitters import RecursiveCharacterTextSplitter
-from embedder import EmbeddingService
-from retriever import get_collection
-from config import MAX_CHUNK_TOKENS, MAX_FILE_SIZE_MB, MAX_PAGES_CRAWL, REQUEST_TIMEOUT
-from logger import get_logger
+from .embedder import EmbeddingService
+from .retriever import get_collection
+from .config import MAX_CHUNK_TOKENS, MAX_FILE_SIZE_MB, MAX_PAGES_CRAWL, REQUEST_TIMEOUT
+from .logger import get_logger
 
 # Get a logger specific to this module
 logger = get_logger("ingest")

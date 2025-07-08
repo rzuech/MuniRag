@@ -1,27 +1,26 @@
 version: '3.8'
 
 services:
-  munirag:
-    build: .
-    container_name: munirag
+  qdrant:
+    image: qdrant/qdrant:latest
+    restart: unless-stopped
     ports:
-      - "8501:8501"
-    env_file: .env
+      - "6333:6333"
+      - "6334:6334"
     volumes:
-      - ./data:/app/data
-      - ./chroma_data:/app/chroma_data
-    depends_on:
-      - ollama
-    gpus: all
+      - ./qdrant_storage:/qdrant/storage:z
+    environment:
+      - QDRANT__LOG_LEVEL=INFO
 
   ollama:
     image: ollama/ollama:latest
-    container_name: ollama
+    restart: unless-stopped
     ports:
       - "11434:11434"
     volumes:
-      - ./ollama_models:/root/.ollama/models
-    gpus: all
+      - ollama_data:/root/.ollama
+    environment:
+      - OLLAMA_MODELS=/root/.ollama/models
     deploy:
       resources:
         reservations:
@@ -29,3 +28,37 @@ services:
             - driver: nvidia
               count: 1
               capabilities: [gpu]
+
+  munirag:
+    build:
+      context: .
+      dockerfile: Dockerfile.optimized
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+      - "8501:8501"  # Keep Streamlit port for backward compatibility
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - CUDA_VISIBLE_DEVICES=0
+      - EMBEDDING_MODEL=jinaai/jina-embeddings-v3
+      - LLM_MODEL=llama3.1:8b
+      - QDRANT_HOST=qdrant
+      - QDRANT_PORT=6333
+    volumes:
+      - ./models:/app/models
+      - ./data:/app/data
+      - ./chroma_data:/app/chroma_data  # Keep for backward compatibility
+    depends_on:
+      - qdrant
+      - ollama
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+volumes:
+  ollama_data:
+  qdrant_storage:

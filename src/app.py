@@ -1,9 +1,9 @@
 import streamlit as st
-from ingest import ingest_pdfs, ingest_website
-from embedder import embed
-from retriever import retrieve
-from llm import stream_answer
-from utils import build_prompt
+from .ingest import ingest_pdfs, ingest_website
+from .embedder import embed
+from .retriever import retrieve
+from .llm import stream_answer
+from .utils import build_prompt
 
 st.set_page_config(page_title="MuniRag - AI Assistant", page_icon="🏛️", layout="wide")
 

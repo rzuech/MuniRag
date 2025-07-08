@@ -35,8 +35,8 @@ USAGE:
 
 import requests
 import json
-from config import LLM_MODEL, OLLAMA_HOST, REQUEST_TIMEOUT
-from logger import get_logger
+from .config import LLM_MODEL, OLLAMA_HOST, REQUEST_TIMEOUT
+from .logger import get_logger
 
 # Get a logger specific to this module
 logger = get_logger("llm")
