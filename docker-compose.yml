@@ -1,0 +1,65 @@
+services:
+  qdrant:
+    image: qdrant/qdrant:latest
+    restart: unless-stopped
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+    volumes:
+      - ./qdrant_storage:/qdrant/storage:z
+    environment:
+      - QDRANT__LOG_LEVEL=INFO
+
+  ollama:
+    image: ollama/ollama:latest
+    restart: unless-stopped
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama_data:/root/.ollama
+    environment:
+      - OLLAMA_MODELS=/root/.ollama/models
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+  munirag:
+    build:
+      context: .
+      dockerfile: Dockerfile.optimized
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+      - "8501:8501"  # Keep Streamlit port for backward compatibility
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=all
+      - CUDA_VISIBLE_DEVICES=0
+      - EMBEDDING_MODEL=BAAI/bge-large-en-v1.5
+      - LLM_MODEL=llama3.1:8b
+      - QDRANT_HOST=qdrant
+      - QDRANT_PORT=6333
+      - HF_HOME=/app/models/huggingface  # Cache Hugging Face models locally
+      - SENTENCE_TRANSFORMERS_HOME=/app/models/sentence_transformers  # Cache ST models
+    volumes:
+      - ./models:/app/models
+      - ./data:/app/data
+      - ./chroma_data:/app/chroma_data  # Keep for backward compatibility
+      - ./logs:/app/logs  # For log files
+    depends_on:
+      - qdrant
+      - ollama
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+
+volumes:
+  ollama_data:
+  qdrant_storage:

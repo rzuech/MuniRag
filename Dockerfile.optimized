@@ -1,0 +1,47 @@
+# Use PyTorch base image to skip 2GB download
+FROM pytorch/pytorch:2.1.0-cuda11.8-cudnn8-runtime
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    git \
+    curl \
+    wget \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set working directory
+WORKDIR /app
+
+# Create multi-stage requirements for better caching
+# Stage 1: Core dependencies that rarely change
+COPY requirements-core.txt .
+RUN pip install --no-cache-dir -r requirements-core.txt
+
+# Stage 2: ML/AI dependencies
+COPY requirements-ml.txt .
+RUN pip install --no-cache-dir -r requirements-ml.txt
+
+# Stage 3: Application-specific dependencies
+COPY requirements-app.txt .
+RUN pip install --no-cache-dir -r requirements-app.txt
+
+# Copy application code
+COPY . .
+
+# Create necessary directories
+RUN mkdir -p /app/models /app/data /app/chroma_data /app/qdrant_storage
+
+# Set up Hugging Face cache directory with proper permissions
+ENV HF_HOME=/app/.cache/huggingface
+RUN mkdir -p $HF_HOME && chmod -R 777 $HF_HOME
+
+# Expose ports
+EXPOSE 8000 8501
+
+# Pre-download Jina model to avoid runtime issues
+RUN python3 -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('jinaai/jina-embeddings-v3', trust_remote_code=True)" || true
+
+# Ensure startup script is executable
+RUN chmod +x /app/start.sh
+
+# Use shell form to ensure proper execution
+CMD ["/bin/bash", "/app/start.sh"]

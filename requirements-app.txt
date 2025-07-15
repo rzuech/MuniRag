@@ -1,0 +1,8 @@
+# Application-specific dependencies
+qdrant-client>=1.7.0
+ollama>=0.1.7
+pymupdf4llm>=0.0.5
+pypdf>=3.17.0
+trafilatura>=1.8
+rank-bm25>=0.2.2
+lxml-html-clean>=0.1.0

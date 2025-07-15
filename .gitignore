@@ -1,0 +1,140 @@
+# CRITICAL: Ignore ALL test PDFs and sensitive data
+Test-PDFs/
+test-pdfs/
+tests/test_data/
+data/
+uploads/
+*.pdf
+*.PDF
+
+# Test outputs that might contain PDF metadata
+tests/test_results/
+test_results/
+*_test_report*.json
+*_benchmark*.json
+*.test.log
+
+# Vector stores and embeddings (may contain document content)
+qdrant_storage/
+chroma_data/
+vector_data/
+embeddings/
+*.embeddings
+*.vectors
+
+# Model cache (large files)
+models/
+.cache/
+~/.cache/huggingface/
+model_cache/
+
+# Environment and config
+.env
+.env.*
+!.env.example
+config.local.json
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Logs and temporary files
+*.log
+logs/
+temp/
+tmp/
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# IDE
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+.project
+.pydevproject
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+.hypothesis/
+
+# Test and debug scripts
+test_*.py
+check_*.py
+debug_*.py
+verify_*.py
+fix_*.sh
+test_*.sh
+debug_*.sh
+apply_*.sh
+restart_*.sh
+quick_*.sh
+
+# Analysis and documentation files
+GPU_*.md
+PDF_*.md
+JINA_*.md
+CRITICAL_*.md
+*_TODO.md
+*_ISSUES.md
+*_RESULTS.md
+CLEANUP_TODO.md
+
+# Demo and experimental files
+demo_*.html
+demo_*.py
+simple_*.py
+quick_*.py
+main_v2.py
+requirements_v2.txt
+*_v2.py
+
+# Docker volumes (may contain data)
+docker_volumes/
+ollama_models/
+
+# Backup files
+*_backup*
+src_backup_*
+*.bak
+*.backup
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Ignore local data and docs
+../munirag_data/
+../munirag_docs/
