@@ -7,7 +7,7 @@ from pathlib import Path
 from datetime import datetime
 from src.pdf_parallel_processor import ParallelPDFProcessor
 from src.embedder import EmbeddingModel
-from src.vector_store import VectorStore
+from src.vector_store_v2 import MultiModelVectorStore
 from src.config import settings
 from src.logger import get_logger
 import torch
@@ -28,7 +28,7 @@ def ingest_pdfs_parallel(files, progress_callback=None, progress_bar=None):
     Returns:
         tuple: (success_count, error_count)
     """
-    vector_store = VectorStore()
+    vector_store = MultiModelVectorStore()
     embedder = EmbeddingModel()
     processor = ParallelPDFProcessor()
     
