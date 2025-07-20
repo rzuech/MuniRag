@@ -1,19 +1,25 @@
 # MuniRAG Master Priority List v2.0
-*Last Updated: 2025-07-19*
+*Last Updated: 2025-07-20*
 
 ## 🚨 Project Status Overview
 
 ### Current State
-- **Version**: 0.90 (clean commit history achieved)
-- **Core Functionality**: Working but with critical bugs
-- **Performance**: GPU fixed, PDF processing connected but not integrated
-- **Architecture**: Mix of v1 and v2 components causing confusion
+- **Version**: 0.90+ (multiple fixes applied)
+- **Core Functionality**: ✅ WORKING - Upload, embed, store, retrieve all functioning
+- **Performance**: ✅ GPU working (9 texts/sec), builds take ~2 min (was 43+)
+- **Architecture**: Multi-model architecture implemented and tested
 
-### Critical Issues
-1. **Store/Retrieve Mismatch**: Documents stored in 'munirag_docs' but searched in 'munirag_baai_bge_large_en_v1.5'
-2. **Multiple Redundant Files**: 4 ingest versions, 2 app versions, 2 docker files
-3. **OCR Not Working**: Dependencies added but not configured
-4. **Semantic Chunking**: Implemented but disabled
+### Recently Fixed Issues ✅
+1. **Store/Retrieve Mismatch**: FIXED - Using MultiModelVectorStore consistently
+2. **LangChain Removal**: FIXED - Custom text splitter, no more dependency conflicts
+3. **Docker Build**: FIXED - Deprecated files excluded, clean builds
+4. **PDF Processing**: FIXED - TableFinder error resolved
+5. **Qdrant Purge**: IMPLEMENTED - Configurable data persistence
+
+### Remaining Issues
+1. **Multiple Redundant Files**: Still need cleanup (see Priority 1)
+2. **OCR Configuration**: Dependencies added but needs Docker setup
+3. **Config.py Review**: Many settings may be outdated (see new Priority 5)
 
 ---
 
@@ -22,7 +28,7 @@
 ### Priority 0: CRITICAL BUG FIXES (Today - 2 hours)
 
 #### 0.1 Fix Store/Retrieve Mismatch 🚨
-**Status**: Not started  
+**Status**: ✅ COMPLETED  
 **Impact**: Documents not retrievable after upload  
 **Fix**: Update `src/ingest_parallel.py` line 30-31
 ```python
@@ -36,7 +42,7 @@ vector_store = MultiModelVectorStore()
 ```
 
 #### 0.2 Enable Semantic Chunking
-**Status**: Code exists, config disabled  
+**Status**: ✅ COMPLETED (enabled in config)  
 **Impact**: Better retrieval quality  
 **Fix**: Already in .env.example, need to ensure it's in .env
 ```bash
@@ -71,12 +77,12 @@ PDF_WORKERS=4
 
 #### 1.3 Clean Docker Files
 **Current State**: 2 Dockerfiles
-- `Dockerfile` - Current working version
-- `Dockerfile.optimized` - Has better caching
+- `Dockerfile` - Old version
+- `Dockerfile.optimized` - Currently used, has PyTorch base image
 
 **Action Plan**:
-1. Merge optimizations into main Dockerfile
-2. Remove `Dockerfile.optimized`
+1. Rename `Dockerfile.optimized` → `Dockerfile`
+2. Remove old `Dockerfile`
 
 #### 1.4 Consolidate Requirements
 **Current State**: 5 requirement files
@@ -203,9 +209,30 @@ PDF_WORKERS=4
 
 ---
 
-### Priority 5: TESTING & DOCUMENTATION (Following Week)
+### Priority 5: CONFIG.PY REVIEW & CLEANUP (Next Week)
 
-#### 5.1 Create Test Suite
+#### 5.1 Review All Configuration Settings
+**Status**: Not started
+**Why**: Many settings in config.py may be outdated or unused
+**Tasks**:
+1. Audit each setting to verify if it's actually used
+2. Remove deprecated settings (e.g., CHROMA_DIR, old ChromaDB configs)
+3. Document what each setting actually controls
+4. Identify settings that have no effect
+5. Create migration guide for breaking config changes
+
+#### 5.2 Settings to Review
+- `COLLECTION_NAME` - Still says "munirag_docs" but we use model-specific names
+- `CHROMA_DIR` - Legacy ChromaDB setting, not used
+- `USE_HYBRID_SEARCH` - Verify if implemented
+- `RERANK_TOP_K` - Check if reranking is implemented
+- `GPU_MEMORY_THRESHOLD` - Check if GPU switching logic exists
+- `MAX_PAGES_CRAWL` - Website ingestion not yet implemented
+- Many others that may be placeholders
+
+### Priority 6: TESTING & DOCUMENTATION (Following Week)
+
+#### 6.1 Create Test Suite
 - Unit tests for all modules
 - Integration tests for full pipeline
 - Performance benchmarks
@@ -228,9 +255,9 @@ PDF_WORKERS=4
 
 ---
 
-### Priority 6: ENSEMBLE EXPERIMENT (Future)
+### Priority 7: ENSEMBLE EXPERIMENT (Future)
 
-#### 6.1 Multi-Model Implementation
+#### 7.1 Multi-Model Implementation
 **Status**: Research complete, architecture designed  
 **Concerns**: Jina licensing for commercial use  
 **Recommendation**: Use BGE + E5 + GTE instead  

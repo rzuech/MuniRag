@@ -7,7 +7,7 @@ MuniRAG includes automated data management features for Qdrant to support both d
 
 ### Primary Setting: `RESET_DATA_ON_STARTUP`
 - **Purpose**: Controls whether Qdrant collections are purged when the application starts
-- **Default**: `true` (currently set for development)
+- **Default**: `false` (production-safe, preserves data)
 - **Location**: `src/config.py` line 111
 
 #### Values:
