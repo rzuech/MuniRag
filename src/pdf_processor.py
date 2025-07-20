@@ -1,5 +1,6 @@
 try:
     import pymupdf4llm
+    import fitz  # PyMuPDF
     PYMUPDF_AVAILABLE = True
 except ImportError:
     PYMUPDF_AVAILABLE = False
@@ -30,8 +31,8 @@ class PDFProcessor:
                     dpi=150
                 )
                 
-                # Extract metadata
-                doc = pymupdf4llm.Document(pdf_path)
+                # Extract metadata using fitz
+                doc = fitz.open(pdf_path)
                 metadata = {
                     "title": doc.metadata.get("title", ""),
                     "author": doc.metadata.get("author", ""),

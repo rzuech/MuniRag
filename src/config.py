@@ -108,7 +108,8 @@ Remember: It's better to say you don't know than to provide incorrect informatio
     DEBUG_GPU_USAGE: bool = False  # Enable detailed GPU logging
     
     # Data management
-    RESET_DATA_ON_STARTUP: bool = False
+    RESET_DATA_ON_STARTUP: bool = True  # Set to False for production
+    RESET_MUNIRAG_ONLY: bool = True    # Only reset munirag_* collections, not others
     QDRANT_DIMENSION: Optional[int] = None  # Auto-detect from model
     
     class Config:

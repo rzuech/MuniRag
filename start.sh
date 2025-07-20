@@ -21,6 +21,14 @@ export CUDA_VISIBLE_DEVICES=0
 # export HF_HUB_OFFLINE=1
 echo "Online mode enabled for model downloads"
 
+# Initialize Qdrant (purge if configured)
+echo "Initializing Qdrant..."
+cd /app && python3 -c "
+from src.qdrant_manager import get_qdrant_manager
+manager = get_qdrant_manager()
+manager.initialize_on_startup()
+"
+
 # Start FastAPI in background with proper module path
 cd /app && python3 -m uvicorn main:app --host 0.0.0.0 --port 8000 --reload &
 

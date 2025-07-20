@@ -210,7 +210,7 @@ class ParallelPDFProcessor:
                 'page_num': page_num + 1,
                 'text': text,
                 'has_images': len(page.get_images()) > 0,
-                'has_tables': len(page.find_tables()) > 0,
+                'has_tables': len(list(page.find_tables())) > 0,  # Convert to list first
                 'ocr_used': enable_ocr and len(text.strip()) < ocr_threshold
             }
             
