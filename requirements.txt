@@ -15,7 +15,7 @@ pytesseract>=0.3.10  # For OCR support
 Pillow>=10.0.0       # For image processing
 
 # Embedding models
-jina>=3.20.0
+# jina removed - not needed, we use jinaai models via sentence-transformers
 FlagEmbedding>=1.2.0
 
 # LLM support
@@ -30,6 +30,7 @@ rerankers>=0.2.0
 # Utils
 python-dotenv>=1.0.0
 pydantic>=2.5.0
+pydantic-settings>=2.0.0
 numpy>=1.24.0
 pandas>=2.0.0
 tqdm>=4.66.0
