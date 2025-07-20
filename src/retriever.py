@@ -3,7 +3,7 @@ Simple document retriever
 """
 
 from typing import List, Tuple, Dict, Any, Optional
-from src.vector_store import VectorStore
+from src.vector_store_v2 import MultiModelVectorStore
 from src.config import settings
 from src.logger import get_logger
 
@@ -26,8 +26,8 @@ def retrieve(query_embedding: List[float],
         top_k = settings.TOP_K
     
     try:
-        # Use simple vector store
-        vector_store = VectorStore()
+        # Use multi-model vector store
+        vector_store = MultiModelVectorStore()
         
         # Log search details
         logger.info(f"Searching in collection: {vector_store.collection_name}")

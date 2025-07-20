@@ -7,7 +7,7 @@ from pathlib import Path
 from datetime import datetime
 from src.pdf_parallel_processor import ParallelPDFProcessor
 from src.embedder import EmbeddingModel
-from src.vector_store import VectorStore
+from src.vector_store_v2 import MultiModelVectorStore
 from src.config import settings
 from src.logger import get_logger
 import torch
@@ -28,7 +28,7 @@ def ingest_pdfs_parallel(files, progress_callback=None, progress_bar=None):
     Returns:
         tuple: (success_count, error_count)
     """
-    vector_store = VectorStore()
+    vector_store = MultiModelVectorStore()
     embedder = EmbeddingModel()
     processor = ParallelPDFProcessor()
     
@@ -68,11 +68,21 @@ def ingest_pdfs_parallel(files, progress_callback=None, progress_bar=None):
                     progress_bar.progress(overall_progress, text=message)
             
             try:
+                # Save uploaded file to temporary location
+                import tempfile
+                import os
+                with tempfile.NamedTemporaryFile(delete=False, suffix='.pdf') as tmp_file:
+                    tmp_file.write(file.getbuffer())
+                    tmp_path = tmp_file.name
+                
                 # Process PDF and get chunks
                 chunks = processor.process_pdf(
-                    pdf_path=file,
+                    pdf_path=tmp_path,
                     progress_callback=update_progress
                 )
+                
+                # Clean up temp file
+                os.unlink(tmp_path)
                 
                 if not chunks:
                     logger.warning(f"No content extracted from {file.name}")

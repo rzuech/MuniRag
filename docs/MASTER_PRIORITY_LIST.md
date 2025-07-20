@@ -92,11 +92,12 @@ PDF_WORKERS=4
   - Benefit: Can switch models without dimension conflicts
   - Drawback: More complex, harder to debug, more storage
 
-**Decision**: Keep simple vector_store.py for now
-**Action Plan**:
-1. Revert `ingest_parallel.py` to use original VectorStore
-2. Delete `vector_store_v2.py` and `MultiModelVectorStore` references
-3. Document that switching embedding models requires re-ingestion
+**Decision**: Keep MultiModelVectorStore for multi-model support
+**Action Plan**: ✅ COMPLETED
+1. Fixed store/retrieve mismatch - both now use MultiModelVectorStore
+2. Kept `vector_store_v2.py` for clean multi-model architecture
+3. Removed LangChain to fix 43-minute build times
+4. Fixed UploadedFile error in PDF processing
 
 ---
 
