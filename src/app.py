@@ -5,19 +5,8 @@ import logging
 logger = logging.getLogger(__name__)
 
 # Use parallel ingest for 10-50x faster PDF processing
-try:
-    from src.ingest import ingest_pdfs_parallel
-    logger.info("Using parallel PDF ingestion with PyMuPDF (10-50x faster)")
-except ImportError:
-    # Fallback to optimized ingest if parallel not available
-    try:
-        from src.deprecated.ingest_optimized import ingest_pdfs_optimized as ingest_pdfs_parallel
-        logger.warning("Using optimized PDF ingestion (parallel not available)")
-    except ImportError:
-        from src.deprecated.ingest_backup import ingest_pdfs as ingest_pdfs_parallel
-        logger.warning("Using standard PDF ingestion (no optimizations available)")
-
-from src.deprecated.ingest_backup import ingest_website
+from src.ingest import ingest_pdfs_parallel, ingest_website
+logger.info("Using parallel PDF ingestion with PyMuPDF (10-50x faster)")
 from src.embedder import EmbeddingModel
 from src.retriever import retrieve
 from src.llm import stream_answer

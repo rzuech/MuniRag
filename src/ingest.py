@@ -15,6 +15,14 @@ import torch
 logger = get_logger("ingest_parallel")
 
 
+def ingest_website(url, max_pages=None):
+    """
+    Website ingestion placeholder - to be implemented
+    """
+    logger.warning("Website ingestion not yet implemented in the refactored version")
+    return 0
+
+
 def ingest_pdfs_parallel(files, progress_callback=None, progress_bar=None):
     """
     High-performance PDF ingestion using parallel processor.
