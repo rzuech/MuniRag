@@ -1,4 +1,5 @@
 # Use PyTorch base image to skip 2GB download
+# This saves ~2GB download time since PyTorch is pre-installed
 FROM pytorch/pytorch:2.1.0-cuda11.8-cudnn8-runtime
 
 # Install system dependencies
@@ -11,18 +12,11 @@ RUN apt-get update && apt-get install -y \
 # Set working directory
 WORKDIR /app
 
-# Create multi-stage requirements for better caching
-# Stage 1: Core dependencies that rarely change
-COPY requirements-core.txt .
-RUN pip install --no-cache-dir -r requirements-core.txt
+# Copy requirements first for better Docker layer caching
+COPY requirements.txt .
 
-# Stage 2: ML/AI dependencies
-COPY requirements-ml.txt .
-RUN pip install --no-cache-dir -r requirements-ml.txt
-
-# Stage 3: Application-specific dependencies
-COPY requirements-app.txt .
-RUN pip install --no-cache-dir -r requirements-app.txt
+# Install requirements (PyTorch already included in base image)
+RUN pip install --no-cache-dir -r requirements.txt
 
 # Copy application code
 COPY . .
@@ -31,14 +25,16 @@ COPY . .
 RUN mkdir -p /app/models /app/data /app/chroma_data /app/qdrant_storage
 
 # Set up Hugging Face cache directory with proper permissions
+# This prevents permission issues when downloading models
 ENV HF_HOME=/app/.cache/huggingface
 RUN mkdir -p $HF_HOME && chmod -R 777 $HF_HOME
 
 # Expose ports
 EXPOSE 8000 8501
 
-# Pre-download Jina model to avoid runtime issues
-RUN python3 -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('jinaai/jina-embeddings-v3', trust_remote_code=True)" || true
+# Pre-download embedding model to avoid runtime issues
+# Using BGE model now instead of Jina
+RUN python3 -c "from sentence_transformers import SentenceTransformer; SentenceTransformer('BAAI/bge-large-en-v1.5')" || true
 
 # Ensure startup script is executable
 RUN chmod +x /app/start.sh

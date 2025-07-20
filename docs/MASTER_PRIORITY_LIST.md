@@ -86,12 +86,17 @@ PDF_WORKERS=4
 
 #### 1.5 Clean Vector Store Implementations
 **Current State**: 
-- `vector_store.py` - Uses fixed collection name
-- `vector_store_v2.py` - Multi-model support
+- `vector_store.py` - Simple, uses single collection "munirag_docs"
+- `vector_store_v2.py` - Complex, creates separate collection per embedding model
+  - Example: "munirag_baai_bge_large_en_v1_5", "munirag_jinaai_jina_embeddings_v3"
+  - Benefit: Can switch models without dimension conflicts
+  - Drawback: More complex, harder to debug, more storage
 
+**Decision**: Keep simple vector_store.py for now
 **Action Plan**:
-1. Rename `vector_store_v2.py` → `vector_store.py`
-2. Archive old version
+1. Revert `ingest_parallel.py` to use original VectorStore
+2. Delete `vector_store_v2.py` and `MultiModelVectorStore` references
+3. Document that switching embedding models requires re-ingestion
 
 ---
 

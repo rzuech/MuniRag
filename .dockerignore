@@ -1,0 +1,58 @@
+# Large directories
+models/
+qdrant_storage/
+chroma_data/
+data/
+Test-PDFs/
+logs/
+archive_*/
+src_backup_*/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.env
+
+# Git
+.git/
+.gitignore
+
+# Documentation
+docs/
+*.md
+
+# Test files
+tests/test_data/
+tests/test_results/
+*.pdf
+*.PDF
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Docker
+docker-compose*.yml
+Dockerfile*
+.dockerignore
+
+# Misc
+*.log
+*.bak
+*.backup
+*.tmp
