@@ -1,0 +1,232 @@
+{
+  "test_suites": {
+    "weston-code-of-ordinances.pdf": {
+      "metadata": {
+        "document_type": "legal_code",
+        "complexity": "high",
+        "pages": 402
+      },
+      "questions": [
+        {
+          "id": "weston-noise-1",
+          "category": "factual",
+          "question": "What are the noise ordinance quiet hours in Weston?",
+          "expected_answer": "The quiet hours are from 10:00 PM to 7:00 AM",
+          "required_elements": ["10", "7", "PM", "AM"],
+          "bonus_elements": ["10:00", "7:00", "quiet hours", "noise ordinance"],
+          "wrong_answer_penalties": ["9 PM", "8 AM", "11 PM", "6 AM"],
+          "weight": 1.0,
+          "difficulty": "easy"
+        },
+        {
+          "id": "weston-noise-2", 
+          "category": "factual",
+          "question": "What is the maximum decibel level allowed during daytime hours?",
+          "expected_answer": "Specific decibel limits for residential areas",
+          "required_elements": ["decibel", "dB", "daytime"],
+          "bonus_elements": ["residential", "commercial", "measured"],
+          "weight": 0.8,
+          "difficulty": "medium"
+        },
+        {
+          "id": "weston-permit-1",
+          "category": "process",
+          "question": "What are the steps to obtain a building permit in Weston?",
+          "expected_answer": "Application submission, fee payment, plan review, inspection",
+          "required_elements": ["application", "permit"],
+          "bonus_elements": ["fee", "review", "inspection", "approval"],
+          "weight": 1.0,
+          "difficulty": "medium"
+        },
+        {
+          "id": "weston-permit-2",
+          "category": "factual",
+          "question": "What types of work require a building permit?",
+          "expected_answer": "Lists specific construction activities requiring permits",
+          "required_elements": ["construction", "alteration", "repair"],
+          "bonus_elements": ["electrical", "plumbing", "structural", "addition"],
+          "weight": 0.9,
+          "difficulty": "medium"
+        },
+        {
+          "id": "weston-penalty-1",
+          "category": "factual",
+          "question": "What are the penalties for violating town ordinances?",
+          "expected_answer": "Fines, enforcement actions, legal consequences",
+          "required_elements": ["fine", "penalty", "violation"],
+          "bonus_elements": ["dollar amount", "enforcement", "court", "misdemeanor"],
+          "weight": 0.8,
+          "difficulty": "medium"
+        },
+        {
+          "id": "weston-zoning-1",
+          "category": "definitional",
+          "question": "What are the main zoning districts in Weston?",
+          "expected_answer": "Residential, commercial, industrial districts with codes",
+          "required_elements": ["residential", "zone", "district"],
+          "bonus_elements": ["commercial", "industrial", "R-1", "C-1", "mixed use"],
+          "weight": 0.7,
+          "difficulty": "hard"
+        },
+        {
+          "id": "weston-context-1",
+          "category": "contextual",
+          "question": "Can I operate a home business in a residential zone?",
+          "expected_answer": "Conditional use with restrictions on type, size, employees",
+          "required_elements": ["home business", "residential", "allowed"],
+          "bonus_elements": ["conditional", "special permit", "restrictions", "employees"],
+          "weight": 1.0,
+          "difficulty": "hard"
+        },
+        {
+          "id": "weston-context-2",
+          "category": "contextual", 
+          "question": "Is construction work allowed on weekends?",
+          "expected_answer": "Limited hours on weekends due to noise ordinance",
+          "required_elements": ["weekend", "construction", "hours"],
+          "bonus_elements": ["Saturday", "Sunday", "7 AM", "noise"],
+          "weight": 0.9,
+          "difficulty": "hard"
+        }
+      ]
+    },
+    "How to Register and Create a Permit Application.pdf": {
+      "metadata": {
+        "document_type": "user_guide",
+        "complexity": "low",
+        "pages": 10
+      },
+      "questions": [
+        {
+          "id": "permit-guide-1",
+          "category": "process",
+          "question": "How do I create an account for permit applications?",
+          "expected_answer": "Register with email, create password, verify account",
+          "required_elements": ["register", "account", "email"],
+          "bonus_elements": ["password", "verify", "username", "portal"],
+          "weight": 1.0,
+          "difficulty": "easy"
+        },
+        {
+          "id": "permit-guide-2",
+          "category": "factual",
+          "question": "What information is required for a permit application?",
+          "expected_answer": "Property address, work description, contractor info, plans",
+          "required_elements": ["address", "description", "information"],
+          "bonus_elements": ["contractor", "plans", "property", "owner"],
+          "weight": 0.9,
+          "difficulty": "easy"
+        },
+        {
+          "id": "permit-guide-3",
+          "category": "process",
+          "question": "How do I submit plans with my permit application?",
+          "expected_answer": "Upload digital files in PDF format through portal",
+          "required_elements": ["upload", "plans", "submit"],
+          "bonus_elements": ["PDF", "digital", "file size", "format"],
+          "weight": 0.8,
+          "difficulty": "medium"
+        }
+      ]
+    },
+    "Create Certificate of Use.pdf": {
+      "metadata": {
+        "document_type": "form_guide",
+        "complexity": "low",
+        "pages": 5
+      },
+      "questions": [
+        {
+          "id": "cert-use-1",
+          "category": "definitional",
+          "question": "What is a Certificate of Use?",
+          "expected_answer": "Document certifying property use compliance with zoning",
+          "required_elements": ["certificate", "use", "zoning"],
+          "bonus_elements": ["compliance", "property", "occupancy", "business"],
+          "weight": 1.0,
+          "difficulty": "easy"
+        },
+        {
+          "id": "cert-use-2",
+          "category": "process",
+          "question": "When is a Certificate of Use required?",
+          "expected_answer": "New business, change of use, new tenant",
+          "required_elements": ["required", "business", "new"],
+          "bonus_elements": ["change", "tenant", "occupancy", "opening"],
+          "weight": 0.9,
+          "difficulty": "medium"
+        }
+      ]
+    },
+    "Procurement Ethics Policy.pdf": {
+      "metadata": {
+        "document_type": "policy",
+        "complexity": "medium",
+        "pages": 15
+      },
+      "questions": [
+        {
+          "id": "ethics-1",
+          "category": "definitional",
+          "question": "What constitutes a conflict of interest in procurement?",
+          "expected_answer": "Financial interest, family relationships, gifts affecting decisions",
+          "required_elements": ["conflict", "interest", "procurement"],
+          "bonus_elements": ["financial", "family", "gift", "disclosure"],
+          "weight": 1.0,
+          "difficulty": "medium"
+        },
+        {
+          "id": "ethics-2",
+          "category": "factual",
+          "question": "What is the gift limit for municipal employees?",
+          "expected_answer": "Specific dollar limit for gifts from vendors",
+          "required_elements": ["gift", "limit", "dollar"],
+          "bonus_elements": ["$25", "$50", "vendor", "aggregate"],
+          "weight": 0.8,
+          "difficulty": "hard"
+        }
+      ]
+    }
+  },
+  "scoring_rubric": {
+    "factual_accuracy": {
+      "weight": 0.4,
+      "criteria": {
+        "all_required_elements": 0.6,
+        "bonus_elements": 0.2,
+        "no_wrong_information": 0.2
+      }
+    },
+    "completeness": {
+      "weight": 0.3,
+      "criteria": {
+        "addresses_question": 0.5,
+        "sufficient_detail": 0.3,
+        "includes_context": 0.2
+      }
+    },
+    "relevance": {
+      "weight": 0.2,
+      "criteria": {
+        "on_topic": 0.5,
+        "cites_source": 0.3,
+        "minimal_irrelevant": 0.2
+      }
+    },
+    "coherence": {
+      "weight": 0.1,
+      "criteria": {
+        "logical_flow": 0.5,
+        "clear_language": 0.3,
+        "no_contradictions": 0.2
+      }
+    }
+  },
+  "grade_thresholds": {
+    "excellent": 0.9,
+    "good": 0.75,
+    "acceptable": 0.6,
+    "poor": 0.4,
+    "failing": 0.0
+  }
+}

@@ -34,6 +34,11 @@ model_cache/
 !.env.example
 config.local.json
 
+# Session management (not for Git)
+SESSION_RESUME_PROMPT.md
+SESSION_SUMMARY_*.md
+session_notes.md
+
 # Python artifacts
 __pycache__/
 *.py[cod]

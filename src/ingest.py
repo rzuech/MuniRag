@@ -7,7 +7,7 @@ from pathlib import Path
 from datetime import datetime
 from src.pdf_parallel_processor import ParallelPDFProcessor
 from src.embedder import EmbeddingModel
-from src.vector_store_v2 import MultiModelVectorStore
+from src.vector_store import MultiModelVectorStore
 from src.config import settings
 from src.logger import get_logger
 import torch

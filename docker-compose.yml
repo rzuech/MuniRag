@@ -30,7 +30,7 @@ services:
   munirag:
     build:
       context: .
-      dockerfile: Dockerfile.optimized
+      dockerfile: Dockerfile
     restart: unless-stopped
     ports:
       - "8000:8000"
@@ -44,11 +44,13 @@ services:
       - QDRANT_PORT=6333
       - HF_HOME=/app/models/huggingface  # Cache Hugging Face models locally
       - SENTENCE_TRANSFORMERS_HOME=/app/models/sentence_transformers  # Cache ST models
+      - SEMANTIC_CHUNKING=true  # Enable semantic chunking for better accuracy
     volumes:
       - ./models:/app/models
       - ./data:/app/data
       - ./chroma_data:/app/chroma_data  # Keep for backward compatibility
       - ./logs:/app/logs  # For log files
+      - ./Test-PDFs:/app/Test-PDFs:ro  # Mount test PDFs as read-only
     depends_on:
       - qdrant
       - ollama

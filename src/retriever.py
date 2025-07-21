@@ -3,7 +3,7 @@ Simple document retriever
 """
 
 from typing import List, Tuple, Dict, Any, Optional
-from src.vector_store_v2 import MultiModelVectorStore
+from src.vector_store import MultiModelVectorStore
 from src.config import settings
 from src.logger import get_logger
 

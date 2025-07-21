@@ -8,7 +8,7 @@ import sys
 import argparse
 from typing import Optional
 from qdrant_client import QdrantClient
-from src.vector_store_v2 import MultiModelVectorStore
+from src.vector_store import MultiModelVectorStore
 from src.config import settings
 from src.logger import get_logger
 from src.model_registry import EMBEDDING_MODELS, get_model_config

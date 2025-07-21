@@ -1,5 +1,5 @@
-# MuniRAG Master Priority List v2.0
-*Last Updated: 2025-07-20*
+# MuniRAG Master Priority List v2.1
+*Last Updated: 2025-07-21*
 
 ## 🚨 Project Status Overview
 
@@ -15,6 +15,9 @@
 3. **Docker Build**: FIXED - Deprecated files excluded, clean builds
 4. **PDF Processing**: FIXED - TableFinder error resolved
 5. **Qdrant Purge**: IMPLEMENTED - Configurable data persistence
+6. **Accuracy Testing**: IMPLEMENTED - 77.7% baseline accuracy achieved (2025-07-21)
+7. **Full Response Logging**: IMPLEMENTED - Complete LLM responses now captured
+8. **Project Organization**: COMPLETED - All test files reorganized into /accuracy_testing/
 
 ### Remaining Issues
 1. **Multiple Redundant Files**: Still need cleanup (see Priority 1)
@@ -25,7 +28,52 @@
 
 ## 📋 Prioritized Task List
 
-### Priority 0: CRITICAL BUG FIXES (Today - 2 hours)
+### Priority 0: CRITICAL ACCURACY IMPROVEMENTS (Immediate)
+
+#### 0.1 Fix Semantic Chunking Configuration
+**Status**: In Progress  
+**Impact**: Major accuracy improvement  
+**Fix**: Enable SEMANTIC_CHUNKING=true in .env
+```bash
+echo "SEMANTIC_CHUNKING=true" >> .env
+echo "CHUNK_SIZE=500" >> .env  
+echo "CHUNK_OVERLAP=100" >> .env
+docker-compose restart munirag
+```
+
+#### 0.2 Improve 512 Token Limitation in Semantic Chunking
+**Status**: Not started  
+**Impact**: Better handling of long text chunks  
+**Tasks**:
+1. Research alternatives to all-MiniLM-L6-v2 with higher token limits
+2. Implement sliding window approach for long chunks
+3. Consider using BGE model for semantic similarity (1024 tokens)
+4. Add fallback for chunks exceeding token limits
+5. Test with long document sections
+
+#### 0.3 Document Complete Chunking Pipeline
+**Status**: Not started  
+**Impact**: Understanding and optimization  
+**Tasks**:
+1. Map entire chunking flow from PDF → storage
+2. Document where chunking happens (PDF processor)
+3. Document where re-chunking happens (if any)
+4. Analyze chunk size distribution
+5. Identify optimization opportunities
+6. Create visual diagram of data flow
+
+#### 0.4 Implement Automated Web-Based Accuracy Testing
+**Status**: ✅ COMPLETED (2025-07-21)  
+**Impact**: Continuous quality assurance  
+**Results**: 
+- Built comprehensive test suite with 20+ questions
+- Multi-dimensional scoring (40% factual, 30% completeness, 20% relevance, 10% coherence)
+- **Achieved 77.7% baseline accuracy**
+- Full LLM response logging implemented
+- Created `/accuracy_testing/` directory structure
+- Can run tests without user interaction
+
+### Priority 1: CRITICAL BUG FIXES (Today - 2 hours)
 
 #### 0.1 Fix Store/Retrieve Mismatch 🚨
 **Status**: ✅ COMPLETED  
@@ -52,6 +100,28 @@ PDF_WORKERS=4
 
 ---
 
+### Priority 0.5: GIT CLEANUP BEFORE PUSH (Immediate - 30 minutes)
+
+#### 0.5.1 Remove Development Artifacts
+**Status**: Not started  
+**Impact**: Clean repository for public viewing  
+**Tasks**:
+1. Delete entire `archive_cleanup/` directory (30+ temp files)
+2. Remove test/debug scripts from root: `check_*.py`, `verify_*.py`
+3. Remove backup files: `.env.backup`, `src/pdf_processor.langchain_backup.py`
+4. Delete `scripts/` directory (old test scripts)
+5. Clean some scripts from `accuracy_testing/scripts/` (debug_test.py, simple_test.py, etc.)
+
+**Commands**:
+```bash
+rm -rf archive_cleanup/
+rm -f check_*.py verify_*.py
+rm -f .env.backup
+rm -f src/pdf_processor.langchain_backup.py
+rm -rf scripts/
+# Keep main test runners in accuracy_testing/scripts/
+```
+
 ### Priority 1: CODE CLEANUP & CONSOLIDATION (Tomorrow - 4 hours)
 
 #### 1.1 Consolidate Ingestion Files
@@ -76,13 +146,11 @@ PDF_WORKERS=4
 2. Archive `app_enhanced.py`
 
 #### 1.3 Clean Docker Files
-**Current State**: 2 Dockerfiles
-- `Dockerfile` - Old version
-- `Dockerfile.optimized` - Currently used, has PyTorch base image
-
-**Action Plan**:
-1. Rename `Dockerfile.optimized` → `Dockerfile`
-2. Remove old `Dockerfile`
+**Status**: ✅ COMPLETED (2025-07-20)
+**Current State**: Single optimized Dockerfile
+- Renamed `Dockerfile.optimized` → `Dockerfile`
+- Removed old Dockerfile
+- Docker build times reduced from 43+ min to ~2 min
 
 #### 1.4 Consolidate Requirements
 **Current State**: 5 requirement files
@@ -230,6 +298,24 @@ PDF_WORKERS=4
 - `MAX_PAGES_CRAWL` - Website ingestion not yet implemented
 - Many others that may be placeholders
 
+### Priority 5.5: EXPAND TEST DATA CORPUS (Medium Priority)
+
+#### 5.5.1 Gather Municipality Documents
+**Status**: Not started  
+**Impact**: Better testing coverage and real-world validation  
+**Tasks**:
+1. Research other municipality websites
+2. Download 30-50 diverse municipal PDFs:
+   - City codes and ordinances
+   - Permit guides and applications
+   - Zoning regulations
+   - Budget documents
+   - Meeting minutes
+   - Policy documents
+3. Organize by document type and complexity
+4. Create test questions for each document type
+5. Never commit PDFs to Git (keep in Test-PDFs/)
+
 ### Priority 6: TESTING & DOCUMENTATION (Following Week)
 
 #### 6.1 Create Test Suite
@@ -255,9 +341,69 @@ PDF_WORKERS=4
 
 ---
 
-### Priority 7: ENSEMBLE EXPERIMENT (Future)
+### Priority 7: VALIDATION & MONITORING (Next Week)
 
-#### 7.1 Multi-Model Implementation
+#### 7.1 PDF Ingestion Validation
+**Status**: Not started  
+**Impact**: Ensure complete document ingestion  
+**Tasks**:
+1. Create automated validation for PDF completeness
+2. Add page count verification after ingestion
+3. Implement chunk distribution analysis
+4. Add error reporting for failed pages
+5. Create ingestion quality metrics
+
+#### 7.2 Review all-MiniLM-L6-v2 Usage
+**Status**: Not started  
+**Impact**: Understanding and documenting model usage  
+**Tasks**:
+1. Document why all-MiniLM-L6-v2 is used for semantic chunking
+2. Review if this is the best model for the task
+3. Consider making it configurable
+4. Add to model registry if keeping
+5. Document token limit implications (512 tokens)
+
+#### 7.3 PDF Ingestion Error Handling
+**Status**: Not started  
+**Impact**: Better error visibility and recovery  
+**Tasks**:
+1. Add comprehensive error logging for each page
+2. Create error summary report after ingestion
+3. Implement retry logic for failed pages
+4. Add OCR failure recovery
+5. Create ingestion health dashboard
+
+### Priority 8: DOCUMENTATION REORGANIZATION (Low Priority)
+
+#### 8.1 Consolidate Documentation
+**Status**: Not started  
+**Impact**: Better developer experience and maintainability  
+**Tasks**:
+1. Create docs/INDEX.md as master documentation hub
+2. Consolidate related docs into subdirectories:
+   - docs/operations/ - Scripts, commands, troubleshooting
+   - docs/architecture/ - System design, data flow
+   - docs/testing/ - Testing strategies, benchmarks
+   - docs/deployment/ - Production setup, configuration
+3. Remove duplicate information
+4. Create clear navigation structure
+5. Add "Quick Start" vs "Deep Dive" sections
+
+#### 8.2 Script Documentation
+**Status**: Not started  
+**Impact**: Understanding of utility scripts  
+**Tasks**:
+1. Document all scripts in scripts/ directory
+2. Create SCRIPTS_REFERENCE.md with:
+   - Script name and purpose
+   - Usage examples
+   - Expected outputs
+3. Add docstrings to all Python scripts
+4. Remove obsolete scripts
+
+### Priority 9: ENSEMBLE EXPERIMENT (Future)
+
+#### 8.1 Multi-Model Implementation
 **Status**: Research complete, architecture designed  
 **Concerns**: Jina licensing for commercial use  
 **Recommendation**: Use BGE + E5 + GTE instead  
@@ -275,16 +421,18 @@ PDF_WORKERS=4
 ## 🧹 Cleanup Checklist
 
 ### Immediate Cleanup (Do First)
-- [ ] Fix store/retrieve mismatch
-- [ ] Enable semantic chunking
-- [ ] Test basic functionality
+- [x] Fix store/retrieve mismatch ✅
+- [x] Enable semantic chunking ✅
+- [x] Test basic functionality ✅
+- [x] Implement accuracy testing ✅
 
 ### File Consolidation
+- [x] Merge docker files → single `Dockerfile` ✅
+- [x] Merge vector stores → using `vector_store_v2.py` as MultiModelVectorStore ✅
+- [x] Remove deprecated directory ✅
 - [ ] Merge ingest files → single `ingest.py`
 - [ ] Merge app files → single `app.py`
-- [ ] Merge docker files → single `Dockerfile`
 - [ ] Consolidate requirements → single `requirements.txt`
-- [ ] Merge vector stores → single `vector_store.py`
 
 ### Archive Structure
 ```
@@ -313,11 +461,12 @@ docs/deployment/
 
 | Metric | Current | Week 1 Target | Month Target |
 |--------|---------|---------------|--------------|
-| Code files | ~20 duplicates | 0 duplicates | Clean architecture |
-| PDF processing | 10+ min/100pg | <1 min/100pg | <30s/100pg |
-| Search accuracy | 0% (broken) | 80% | 95% |
+| Code files | ~10 duplicates | 0 duplicates | Clean architecture |
+| PDF processing | <1 min/100pg ✅ | <1 min/100pg | <30s/100pg |
+| Search accuracy | 77.7% ✅ | 80% | 95% |
 | OCR support | No | Basic | Advanced |
-| Test coverage | 0% | 30% | 80% |
+| Test coverage | 20% ✅ | 30% | 80% |
+| Response logging | Full ✅ | Full | Full + Analytics |
 
 ---
 

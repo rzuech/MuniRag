@@ -1,7 +1,7 @@
 from typing import List, Dict, Optional
 import ollama
 from src.embedder import EmbeddingModel
-from src.vector_store import VectorStore
+from src.vector_store import MultiModelVectorStore
 from src.reranker import Reranker
 from src.pdf_processor import PDFProcessor
 from src.config import settings
@@ -10,7 +10,7 @@ import asyncio
 class RAGPipeline:
     def __init__(self):
         self.embedder = EmbeddingModel()
-        self.vector_store = VectorStore()
+        self.vector_store = MultiModelVectorStore()
         self.reranker = Reranker()
         self.pdf_processor = PDFProcessor()
         

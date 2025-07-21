@@ -1,0 +1,218 @@
+/opt/conda/lib/python3.10/site-packages/torchvision/io/image.py:13: UserWarning: Failed to load image Python extension: '/opt/conda/lib/python3.10/site-packages/torchvision/image.so: undefined symbol: _ZN3c1017RegisterOperatorsD1Ev'If you don't plan on using image functionality from `torchvision.io`, you can ignore this warning. Otherwise, there might be something wrong with your environment. Did you have `libjpeg` or `libpng` installed before building `torchvision` from source?
+  warn(
+INFO:src.embedder:🎮 GPU: NVIDIA GeForce RTX 4090 (25.8GB) | Batch size: 512
+INFO:src.embedder:RTX 4090 detected - forcing batch size to 1024
+INFO:src.embedder:Loading embedding model: BAAI/bge-large-en-v1.5
+INFO:sentence_transformers.SentenceTransformer:Load pretrained SentenceTransformer: BAAI/bge-large-en-v1.5
+INFO:src.embedder:Model moved to CUDA device
+INFO:src.embedder:Model device: cuda:0
+INFO:httpx:HTTP Request: GET http://qdrant:6333 "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET http://qdrant:6333/collections "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET http://qdrant:6333/collections/munirag_baai_bge_large_en_v1.5 "HTTP/1.1 200 OK"
+=== MuniRAG Baseline Accuracy Test ===
+Started at: 2025-07-21 00:48:32
+
+2025-07-21 00:48:40 - munirag.vector_store - INFO - Initialized MultiModelVectorStore for BAAI/bge-large-en-v1.5
+2025-07-21 00:48:40 - munirag.vector_store - INFO -   Collection: munirag_baai_bge_large_en_v1.5
+2025-07-21 00:48:40 - munirag.vector_store - INFO -   Dimension: 1024
+INFO:httpx:HTTP Request: GET http://qdrant:6333/collections/munirag_baai_bge_large_en_v1.5 "HTTP/1.1 200 OK"
+Collection: munirag_baai_bge_large_en_v1.5
+Documents: None
+
+
+Testing weston-code-of-ordinances.pdf
+--------------------------------------------------
+
+[1] weston-noise-1: What are the noise ordinance quiet hours in Weston?
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  4.16it/s]Batches: 100%|██████████| 1/1 [00:00<00:00,  4.16it/s]
+INFO:httpx:HTTP Request: GET http://qdrant:6333 "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET http://qdrant:6333/collections "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET http://qdrant:6333/collections/munirag_baai_bge_large_en_v1.5 "HTTP/1.1 200 OK"
+2025-07-21 00:48:40 - munirag.vector_store - INFO - Initialized MultiModelVectorStore for BAAI/bge-large-en-v1.5
+2025-07-21 00:48:40 - munirag.vector_store - INFO -   Collection: munirag_baai_bge_large_en_v1.5
+2025-07-21 00:48:40 - munirag.vector_store - INFO -   Dimension: 1024
+2025-07-21 00:48:40 - munirag.retriever - INFO - Searching in collection: munirag_baai_bge_large_en_v1.5
+2025-07-21 00:48:40 - munirag.retriever - INFO - Query dimension: 1024
+INFO:httpx:HTTP Request: POST http://qdrant:6333/collections/munirag_baai_bge_large_en_v1.5/points/search "HTTP/1.1 200 OK"
+2025-07-21 00:48:40 - munirag.retriever - INFO - Retrieved 4 documents
+  ✓ Retrieved 4 chunks
+2025-07-21 00:48:40 - munirag.llm - INFO - Sending request to Ollama model: llama3.1:8b
+2025-07-21 00:48:40 - munirag.llm - INFO - Response generation completed (54 chunks, 302 characters)
+  ✓ Generated response (302 chars)
+  ✓ Score: 67.0% (acceptable)
+  ✓ Found elements: ['PM']
+
+[2] weston-noise-2: What is the maximum decibel level allowed during daytime hours?
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 45.77it/s]
+INFO:httpx:HTTP Request: GET http://qdrant:6333 "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET http://qdrant:6333/collections "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET http://qdrant:6333/collections/munirag_baai_bge_large_en_v1.5 "HTTP/1.1 200 OK"
+2025-07-21 00:48:40 - munirag.vector_store - INFO - Initialized MultiModelVectorStore for BAAI/bge-large-en-v1.5
+2025-07-21 00:48:40 - munirag.vector_store - INFO -   Collection: munirag_baai_bge_large_en_v1.5
+2025-07-21 00:48:40 - munirag.vector_store - INFO -   Dimension: 1024
+2025-07-21 00:48:40 - munirag.retriever - INFO - Searching in collection: munirag_baai_bge_large_en_v1.5
+2025-07-21 00:48:40 - munirag.retriever - INFO - Query dimension: 1024
+INFO:httpx:HTTP Request: POST http://qdrant:6333/collections/munirag_baai_bge_large_en_v1.5/points/search "HTTP/1.1 200 OK"
+2025-07-21 00:48:40 - munirag.retriever - INFO - Retrieved 4 documents
+  ✓ Retrieved 4 chunks
+2025-07-21 00:48:40 - munirag.llm - INFO - Sending request to Ollama model: llama3.1:8b
+2025-07-21 00:48:42 - munirag.llm - INFO - Response generation completed (180 chunks, 909 characters)
+  ✓ Generated response (909 chars)
+  ✓ Score: 82.8% (good)
+  ✓ Found elements: ['decibel', 'daytime']
+
+Testing How to Register and Create a Permit Application.pdf
+--------------------------------------------------
+
+[3] permit-guide-1: How do I create an account for permit applications?
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 131.73it/s]
+INFO:httpx:HTTP Request: GET http://qdrant:6333 "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET http://qdrant:6333/collections "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET http://qdrant:6333/collections/munirag_baai_bge_large_en_v1.5 "HTTP/1.1 200 OK"
+2025-07-21 00:48:42 - munirag.vector_store - INFO - Initialized MultiModelVectorStore for BAAI/bge-large-en-v1.5
+2025-07-21 00:48:42 - munirag.vector_store - INFO -   Collection: munirag_baai_bge_large_en_v1.5
+2025-07-21 00:48:42 - munirag.vector_store - INFO -   Dimension: 1024
+2025-07-21 00:48:42 - munirag.retriever - INFO - Searching in collection: munirag_baai_bge_large_en_v1.5
+2025-07-21 00:48:42 - munirag.retriever - INFO - Query dimension: 1024
+INFO:httpx:HTTP Request: POST http://qdrant:6333/collections/munirag_baai_bge_large_en_v1.5/points/search "HTTP/1.1 200 OK"
+2025-07-21 00:48:42 - munirag.retriever - INFO - Retrieved 4 documents
+  ✓ Retrieved 4 chunks
+2025-07-21 00:48:42 - munirag.llm - INFO - Sending request to Ollama model: llama3.1:8b
+2025-07-21 00:48:44 - munirag.llm - INFO - Response generation completed (201 chunks, 914 characters)
+  ✓ Generated response (914 chars)
+  ✓ Score: 84.8% (good)
+  ✓ Found elements: ['register', 'account']
+
+[4] permit-guide-2: What information is required for a permit application?
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 74.67it/s]
+INFO:httpx:HTTP Request: GET http://qdrant:6333 "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET http://qdrant:6333/collections "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET http://qdrant:6333/collections/munirag_baai_bge_large_en_v1.5 "HTTP/1.1 200 OK"
+2025-07-21 00:48:44 - munirag.vector_store - INFO - Initialized MultiModelVectorStore for BAAI/bge-large-en-v1.5
+2025-07-21 00:48:44 - munirag.vector_store - INFO -   Collection: munirag_baai_bge_large_en_v1.5
+2025-07-21 00:48:44 - munirag.vector_store - INFO -   Dimension: 1024
+2025-07-21 00:48:44 - munirag.retriever - INFO - Searching in collection: munirag_baai_bge_large_en_v1.5
+2025-07-21 00:48:44 - munirag.retriever - INFO - Query dimension: 1024
+INFO:httpx:HTTP Request: POST http://qdrant:6333/collections/munirag_baai_bge_large_en_v1.5/points/search "HTTP/1.1 200 OK"
+2025-07-21 00:48:44 - munirag.retriever - INFO - Retrieved 4 documents
+  ✓ Retrieved 4 chunks
+2025-07-21 00:48:44 - munirag.llm - INFO - Sending request to Ollama model: llama3.1:8b
+2025-07-21 00:48:46 - munirag.llm - INFO - Response generation completed (466 chunks, 2341 characters)
+  ✓ Generated response (2341 chars)
+  ✓ Score: 67.6% (acceptable)
+  ✓ Found elements: ['address', 'information']
+
+Testing Create Certificate of Use.pdf
+--------------------------------------------------
+
+[5] cert-use-1: What is a Certificate of Use?
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 133.99it/s]
+INFO:httpx:HTTP Request: GET http://qdrant:6333 "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET http://qdrant:6333/collections "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET http://qdrant:6333/collections/munirag_baai_bge_large_en_v1.5 "HTTP/1.1 200 OK"
+2025-07-21 00:48:46 - munirag.vector_store - INFO - Initialized MultiModelVectorStore for BAAI/bge-large-en-v1.5
+2025-07-21 00:48:46 - munirag.vector_store - INFO -   Collection: munirag_baai_bge_large_en_v1.5
+2025-07-21 00:48:46 - munirag.vector_store - INFO -   Dimension: 1024
+2025-07-21 00:48:46 - munirag.retriever - INFO - Searching in collection: munirag_baai_bge_large_en_v1.5
+2025-07-21 00:48:46 - munirag.retriever - INFO - Query dimension: 1024
+INFO:httpx:HTTP Request: POST http://qdrant:6333/collections/munirag_baai_bge_large_en_v1.5/points/search "HTTP/1.1 200 OK"
+2025-07-21 00:48:46 - munirag.retriever - INFO - Retrieved 4 documents
+  ✓ Retrieved 4 chunks
+2025-07-21 00:48:46 - munirag.llm - INFO - Sending request to Ollama model: llama3.1:8b
+2025-07-21 00:48:47 - munirag.llm - INFO - Response generation completed (158 chunks, 783 characters)
+  ✓ Generated response (783 chars)
+  ✓ Score: 82.8% (good)
+  ✓ Found elements: ['certificate', 'use']
+
+[6] cert-use-2: When is a Certificate of Use required?
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 64.32it/s]
+INFO:httpx:HTTP Request: GET http://qdrant:6333 "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET http://qdrant:6333/collections "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET http://qdrant:6333/collections/munirag_baai_bge_large_en_v1.5 "HTTP/1.1 200 OK"
+2025-07-21 00:48:47 - munirag.vector_store - INFO - Initialized MultiModelVectorStore for BAAI/bge-large-en-v1.5
+2025-07-21 00:48:47 - munirag.vector_store - INFO -   Collection: munirag_baai_bge_large_en_v1.5
+2025-07-21 00:48:47 - munirag.vector_store - INFO -   Dimension: 1024
+2025-07-21 00:48:47 - munirag.retriever - INFO - Searching in collection: munirag_baai_bge_large_en_v1.5
+2025-07-21 00:48:47 - munirag.retriever - INFO - Query dimension: 1024
+INFO:httpx:HTTP Request: POST http://qdrant:6333/collections/munirag_baai_bge_large_en_v1.5/points/search "HTTP/1.1 200 OK"
+2025-07-21 00:48:47 - munirag.retriever - INFO - Retrieved 4 documents
+  ✓ Retrieved 4 chunks
+2025-07-21 00:48:47 - munirag.llm - INFO - Sending request to Ollama model: llama3.1:8b
+2025-07-21 00:48:48 - munirag.llm - INFO - Response generation completed (131 chunks, 648 characters)
+  ✓ Generated response (648 chars)
+  ✓ Score: 74.8% (acceptable)
+  ✓ Found elements: ['required']
+
+Testing Procurement Ethics Policy.pdf
+--------------------------------------------------
+
+[7] ethics-1: What constitutes a conflict of interest in procurement?
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]Batches: 100%|██████████| 1/1 [00:00<00:00, 49.82it/s]
+INFO:httpx:HTTP Request: GET http://qdrant:6333 "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET http://qdrant:6333/collections "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET http://qdrant:6333/collections/munirag_baai_bge_large_en_v1.5 "HTTP/1.1 200 OK"
+2025-07-21 00:48:48 - munirag.vector_store - INFO - Initialized MultiModelVectorStore for BAAI/bge-large-en-v1.5
+2025-07-21 00:48:48 - munirag.vector_store - INFO -   Collection: munirag_baai_bge_large_en_v1.5
+2025-07-21 00:48:48 - munirag.vector_store - INFO -   Dimension: 1024
+2025-07-21 00:48:48 - munirag.retriever - INFO - Searching in collection: munirag_baai_bge_large_en_v1.5
+2025-07-21 00:48:48 - munirag.retriever - INFO - Query dimension: 1024
+INFO:httpx:HTTP Request: POST http://qdrant:6333/collections/munirag_baai_bge_large_en_v1.5/points/search "HTTP/1.1 200 OK"
+2025-07-21 00:48:48 - munirag.retriever - INFO - Retrieved 4 documents
+  ✓ Retrieved 4 chunks
+2025-07-21 00:48:48 - munirag.llm - INFO - Sending request to Ollama model: llama3.1:8b
+2025-07-21 00:48:49 - munirag.llm - INFO - Response generation completed (108 chunks, 641 characters)
+Batches:   0%|          | 0/1 [00:00<?, ?it/s]  ✓ Generated response (641 chars)
+  ✓ Score: 80.8% (good)
+  ✓ Found elements: ['conflict', 'interest', 'procurement']
+
+[8] ethics-2: What is the gift limit for municipal employees?
+Batches: 100%|██████████| 1/1 [00:00<00:00, 135.37it/s]
+INFO:httpx:HTTP Request: GET http://qdrant:6333 "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET http://qdrant:6333/collections "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: GET http://qdrant:6333/collections/munirag_baai_bge_large_en_v1.5 "HTTP/1.1 200 OK"
+2025-07-21 00:48:49 - munirag.vector_store - INFO - Initialized MultiModelVectorStore for BAAI/bge-large-en-v1.5
+2025-07-21 00:48:49 - munirag.vector_store - INFO -   Collection: munirag_baai_bge_large_en_v1.5
+2025-07-21 00:48:49 - munirag.vector_store - INFO -   Dimension: 1024
+2025-07-21 00:48:49 - munirag.retriever - INFO - Searching in collection: munirag_baai_bge_large_en_v1.5
+2025-07-21 00:48:49 - munirag.retriever - INFO - Query dimension: 1024
+INFO:httpx:HTTP Request: POST http://qdrant:6333/collections/munirag_baai_bge_large_en_v1.5/points/search "HTTP/1.1 200 OK"
+2025-07-21 00:48:50 - munirag.retriever - INFO - Retrieved 4 documents
+  ✓ Retrieved 4 chunks
+2025-07-21 00:48:50 - munirag.llm - INFO - Sending request to Ollama model: llama3.1:8b
+2025-07-21 00:48:51 - munirag.llm - INFO - Response generation completed (164 chunks, 862 characters)
+  ✓ Generated response (862 chars)
+  ✓ Score: 82.8% (good)
+  ✓ Found elements: ['gift', 'limit']
+
+==================================================
+BASELINE TEST SUMMARY
+==================================================
+Total Questions Tested: 8
+Successfully Scored: 8
+Average Score: 77.9%
+Passing (≥60%): 8/8
+
+Grade Distribution:
+  acceptable: 3
+  good: 5
+
+Results saved to: baseline_test_20250721_004851.json
+
+Overall Assessment:
+✅ GOOD - System is performing well
+
+Example Responses:
+
+Q: weston-noise-1
+Score: 67.0%
+Response: I don't have information about the noise ordinance quiet hours in Weston. The provided sources do not mention anything related to noise ordinances or quiet hours. They focus on land development regula...
+
+Q: weston-noise-2
+Score: 82.8%
+Response: I don't have information about a specific maximum decibel level allowed during daytime hours in the provided documents. The sources mention "Loud and Raucous Noise" that annoys, disturbs, injures, or ...
+
+Q: permit-guide-1
+Score: 84.8%
+Response: To create an account for permit applications, follow these steps:
+
+According to [Source 4], on the City of Weston e-Permits portal, click on the "Register for an Account" link located at the top-right...

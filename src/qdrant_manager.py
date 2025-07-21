@@ -53,15 +53,25 @@ class QdrantManager:
     def purge_munirag_collections(self) -> int:
         """
         Purge only MuniRAG collections (those starting with 'munirag_')
+        Exempts test-related collections from purging
         
         Returns:
             Number of collections deleted
         """
         try:
             collections = self.client.get_collections()
+            
+            # Collections to preserve (test data, metrics, etc.)
+            exempt_collections = [
+                "munirag_test_results",
+                "munirag_test_questions", 
+                "munirag_accuracy_metrics",
+                "munirag_baseline_scores"
+            ]
+            
             munirag_collections = [
                 c.name for c in collections.collections 
-                if c.name.startswith("munirag_")
+                if c.name.startswith("munirag_") and c.name not in exempt_collections
             ]
             
             if not munirag_collections:
